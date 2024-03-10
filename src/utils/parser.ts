@@ -1,12 +1,13 @@
-const SEQUENCE = ['3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']
+import { CardType } from '../modules/Store'
+import { sequence } from './config'
 
 function generateSequence(str: string, nums: number) {
-  const [start, end] = str.split('-')
-  const startIdx = SEQUENCE.indexOf(start)
-  const endIdx = SEQUENCE.lastIndexOf(end)
+  const [start, end] = str.split('-') as CardType[]
+  const startIdx = sequence.indexOf(start)
+  const endIdx = sequence.lastIndexOf(end)
   const res = {} as any
   for (let i = startIdx; i <= endIdx; i++) {
-    const key = SEQUENCE[i]
+    const key = sequence[i]
     res[key] = nums
   }
   return res

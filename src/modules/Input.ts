@@ -3,6 +3,7 @@ import '../style/input.css'
 import View from './View'
 import { parser } from '../utils/parser'
 import { mergeObjNumberValue } from '../utils/mergeObjNumberValue'
+import { suggester } from '../utils/suggester'
 
 export default class Input extends View {
   storeInstance: Store
@@ -17,7 +18,7 @@ export default class Input extends View {
   init() {
     this.el.className = 'input-wrap'
     this.el.innerHTML = `
-      <div class="input-container">
+      <div class="input-container" data-prev-command="">
         <input type="text" class="inner-input" placeholder="" disabled />
         <input type="text" class="outter-input" value="" />
       </div>
@@ -92,6 +93,7 @@ export default class Input extends View {
     })
 
     this.storeInstance.update(data, token)
+    this.updatePrevCommand()
     this.showSuggestion('')
   }
 
@@ -105,13 +107,21 @@ export default class Input extends View {
       return
     }
 
-    console.log('generate suggestion', token)
-    this.showSuggestion(token + '--- todo')
+    const suggestion = suggester(token, this.storeInstance)
+    this.showSuggestion(suggestion)
   }
 
   showSuggestion(text: string) {
     this.suggestionText = text
     this.querySelector('.inner-input')!.setAttribute('placeholder', text)
+  }
+
+  updatePrevCommand() {
+    const latestRecord = this.storeInstance.getLastestRecord()
+    this.querySelector('.input-container')?.setAttribute(
+      'data-prev-command',
+      `上一次输入：${latestRecord?.[1] || ''}`,
+    )
   }
 
   querySelector(selector: string) {

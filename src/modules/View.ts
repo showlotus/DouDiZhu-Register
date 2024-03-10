@@ -8,5 +8,6 @@ export default class View {
     document.querySelector<HTMLDivElement>('#app')!.appendChild(this.el)
   }
 
+  // @ts-expect-error
   render(props?: any) {}
 }
