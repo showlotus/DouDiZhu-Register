@@ -1,4 +1,4 @@
-import './style.css'
+import './style/index.css'
 import Store from '@/modules/Store'
 import Card from '@/modules/Card'
 import HistoryRecord from '@/modules/HistoryRecord'
