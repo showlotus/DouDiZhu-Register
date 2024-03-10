@@ -20,6 +20,9 @@
   padding: 1rem;
   letter-spacing: 0.2rem;
   font-family: consolas;
+  border-radius: 0.8rem;
+  border-color: var(--border-color);
+  border-style: solid;
   background-color: transparent;
 }
 
@@ -36,18 +39,22 @@
   height: 8rem;
   padding: 0 2rem;
   font-size: 2rem;
-  color: var(--color);
-  border-radius: 8px;
+  color: var(--btn-color);
+  border-radius: 0.8rem;
+  border-style: solid;
+  border-color: var(--btn-background-color);
+  background-color: var(--btn-background-color);
   overflow: hidden;
-  box-sizing: content-box;
   cursor: pointer;
+  box-sizing: content-box;
+}
+
+.input-wrap button:active {
+  transform: scale(0.98);
 }
 
 .input-wrap .cancel-btn {
-  background-color: crimson;
-  background-color: #ff486a;
-}
-
-.input-wrap .reset-btn {
-  background-color: #4c9be6;
+  color: #fff;
+  border-color: #ca3a31;
+  background-color: #ca3a31;
 }

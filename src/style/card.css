@@ -33,12 +33,16 @@
   height: 8rem;
 
   border-radius: 0.8rem;
-  color: var(--background-color);
-  background-color: var(--color);
-  border: 2px solid var(--background-color);
+  color: var(--card-color);
+  background-color: var(--card-background-color);
+  border: 2px solid var(--border-color);
 }
 
 .card-wrap .double-char .card-text span {
   letter-spacing: -1rem;
   margin-left: -1.25rem;
+}
+
+.card-wrap .card-num {
+  color: var(--card-num-color);
 }
