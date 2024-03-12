@@ -1,0 +1,88 @@
+.keyboard-wrap {
+  --gap: 10px;
+  --radius: 5px;
+
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 35vh;
+  padding: 8px 8px 16px 8px;
+  font-family: sans-serif;
+  border-top: 1px solid var(--keyboard-border-color);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  background-color: var(--keyboard-background-color);
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--gap);
+
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      font-size: 5rem;
+      color: var(--keyboard-key-color);
+      border-radius: var(--radius);
+      background-color: var(--keyboard-key-background-color);
+      box-shadow: 0 1.5px 0 0 var(--keyboard-key-shadow-color);
+      user-select: none;
+
+      svg {
+        pointer-events: none;
+      }
+
+      &.btn-special {
+        background-color: var(--keyboard-key-active-background-color);
+      }
+
+      &.btn-word {
+        letter-spacing: 0.1em;
+        font-weight: initial;
+        font-size: 4rem;
+      }
+    }
+
+    .btn-default,
+    .btn-mini {
+      flex: 1;
+    }
+
+    .btn-default.active,
+    .btn-mini.active {
+      background-color: var(--keyboard-key-active-background-color);
+    }
+
+    .btn.btn-special.active {
+      background-color: var(--keyboard-key-background-color);
+    }
+  }
+
+  .row-1 {
+    flex: 1;
+  }
+
+  .row-2 {
+    flex: 2;
+
+    .btn-large {
+      width: calc((100% - var(--gap) * 4) / 5);
+    }
+
+    .center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+
+      .row {
+        flex: 1;
+      }
+    }
+  }
+}

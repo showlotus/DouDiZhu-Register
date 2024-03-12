@@ -10,8 +10,9 @@
   },
   "devDependencies": {
     "@types/node": "^20.11.25",
+    "@vituum/vite-plugin-postcss": "^1.1.0",
+    "less": "^4.2.0",
     "typescript": "^5.2.2",
     "vite": "^5.1.4"
-  },
-  "dependencies": {}
+  }
 }

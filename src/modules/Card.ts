@@ -1,8 +1,8 @@
 import { CardType, StoreData, JokerType } from './Store'
 import View from './View'
-import JokerM from '../img/joker-m.svg'
-import JokerS from '../img/joker-s.svg'
-import '../style/card.css'
+import JokerM from '@/img/joker-m.svg'
+import JokerS from '@/img/joker-s.svg'
+import '@/style/Card.less'
 
 export default class Card extends View {
   constructor() {

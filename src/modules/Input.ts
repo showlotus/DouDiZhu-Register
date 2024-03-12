@@ -1,32 +1,58 @@
 import Store from './Store'
-import '../style/input.css'
+import '@/style/Input.less'
 import View from './View'
-import { parser } from '../utils/parser'
-import { mergeObjNumberValue } from '../utils/mergeObjNumberValue'
-import { suggester } from '../utils/suggester'
+import { parser } from '@/utils/parser'
+import { mergeObjNumberValue } from '@/utils/mergeObjNumberValue'
+import { suggester } from '@/utils/suggester'
+import { isMobile } from '@/utils/isMobile'
 
 export default class Input extends View {
   storeInstance: Store
   suggestionText: string
+  maxlength: number
   constructor(storeInstance: Store) {
     super()
     this.storeInstance = storeInstance
     this.suggestionText = ''
+    this.maxlength = 15
     this.init()
   }
 
   init() {
     this.el.className = 'input-wrap'
-    this.el.innerHTML = `
-      <div class="input-container" data-prev-command="">
+    this.el.innerHTML = /* html */ `
+      <div class="input-container" data-prev-command="" data-value=" ">
         <input type="text" class="inner-input" placeholder="" disabled />
         <input type="text" class="outter-input" value="" />
       </div>
-      <button class="cancel-btn">撤销</button>
-      <button class="reset-btn">重置</button>
     `
+    if (isMobile()) {
+      this.el.classList.add('is-mobile')
+      this.el.querySelector('.outter-input')?.setAttribute('readonly', 'readonly')
+    } else {
+      this.el.innerHTML += /* html */ `
+        <button class="cancel-btn">撤销</button>
+        <button class="reset-btn">重置</button>
+      `
+    }
+
     this.insert()
     this.render()
+  }
+
+  getValue() {
+    return (this.querySelector('.outter-input') as HTMLInputElement).value
+  }
+
+  updateValue(val: string) {
+    val = val.slice(0, this.maxlength)
+    const target = this.querySelector('.outter-input') as HTMLInputElement
+    target.value = val
+    this.querySelector('.input-container')?.setAttribute('data-value', val)
+  }
+
+  dispatchEvent(e: Event) {
+    this.querySelector('.outter-input')!.dispatchEvent(e)
   }
 
   initOutterInput() {
@@ -36,34 +62,38 @@ export default class Input extends View {
   }
 
   initCancelBtn() {
-    this.querySelector('.cancel-btn')?.addEventListener('click', () => {
-      const outterInput = this.querySelector('.outter-input') as HTMLInputElement
-      if (outterInput.value) {
-        outterInput.value = ''
-        return
-      }
-      const latestCommand = this.storeInstance.revocation()
-      this.showSuggestion(latestCommand)
-    })
+    this.querySelector('.cancel-btn')?.addEventListener('click', this.handleRevocation)
   }
 
   initResetBtn() {
-    this.querySelector('.reset-btn')?.addEventListener('click', () => {
-      this.storeInstance.reset()
-    })
+    this.querySelector('.reset-btn')?.addEventListener('click', this.handleReset)
+  }
+
+  handleReset = () => {
+    this.storeInstance.reset()
+    this.updateValue('')
+    this.dispatchEvent(new Event('input'))
+  }
+
+  handleRevocation = () => {
+    if (this.getValue()) {
+      this.updateValue('')
+      return
+    }
+    const latestCommand = this.storeInstance.revocation()
+    this.showSuggestion(latestCommand)
   }
 
   handleInputEvent = (e: Event) => {
     const target = e.target as HTMLInputElement
-    target.value = target.value.toUpperCase()
+    this.updateValue(target.value.toUpperCase())
     this.genSuggestion(target.value)
   }
 
   handleKeydownEvent = (e: KeyboardEvent) => {
     if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
-      const target = e.target as HTMLInputElement
       if (this.suggestionText) {
-        target.value = this.suggestionText
+        this.updateValue(this.suggestionText)
       }
       e.preventDefault()
     } else if (e.key === 'Enter') {
@@ -73,7 +103,7 @@ export default class Input extends View {
       }
 
       this.parseToken(target.value)
-      target.value = ''
+      this.updateValue('')
     } else if (e.key === ' ') {
       e.preventDefault()
     }

@@ -20,6 +20,13 @@
   --btn-background-color: #fafafa;
   --background-color: #fff;
   --border-color: rgba(255, 255, 255, 0.8);
+
+  --keyboard-border-color: #1f1f1f;
+  --keyboard-background-color: #27313a;
+  --keyboard-key-color: #fff;
+  --keyboard-key-background-color: #686f75;
+  --keyboard-key-active-background-color: #434a50;
+  --keyboard-key-shadow-color: #181c25;
 }
 
 @media (prefers-color-scheme: light) {
@@ -34,10 +41,17 @@
     --btn-background-color: #242424;
     --border-color: #242424;
     --background-color: #fff;
+
+    --keyboard-border-color: #bcbfc6;
+    --keyboard-background-color: #d0d3da;
+    --keyboard-key-color: #000;
+    --keyboard-key-background-color: #fff;
+    --keyboard-key-active-background-color: #a9b0ba;
+    --keyboard-key-shadow-color: #84878e;
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 850px) {
   :root {
     font-size: 1vw;
   }
@@ -58,7 +72,7 @@ body {
   display: flex;
   justify-content: center;
   min-width: 320px;
-  min-height: 100vh;
+  max-height: 100vh;
 }
 
 #app {

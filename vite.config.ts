@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import postcss from '@vituum/vite-plugin-postcss'
 import path from 'path'
 
 export default defineConfig({
@@ -11,4 +12,5 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  plugins: [postcss()],
 })
