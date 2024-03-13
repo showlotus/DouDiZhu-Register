@@ -4,7 +4,7 @@
 
 ## 效果图
 
-<img src="./res/iPhone-light.jpeg" alt="" height="300" /><img src="./res/iPhone-dark.jpeg" alt="" height="300" /><img src="./res/iPad-light.jpeg" alt="" height="300" /><img src="./res/iPad-dark.jpeg" alt="" height="300" />
+<img src="./res/iPhone-light.jpeg" alt="" height="300" /> <img src="./res/iPhone-dark.jpeg" alt="" height="300" /> <img src="./res/iPad-light.jpeg" alt="" height="300" /> <img src="./res/iPad-dark.jpeg" alt="" height="300" />
 
 ## 操作指导
 
