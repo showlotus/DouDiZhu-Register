@@ -10,11 +10,13 @@ export default class Input extends View {
   storeInstance: Store
   suggestionText: string
   maxlength: number
+  timer: any
   constructor(storeInstance: Store) {
     super()
     this.storeInstance = storeInstance
     this.suggestionText = ''
     this.maxlength = 15
+    this.timer = null
     this.init()
   }
 
@@ -88,6 +90,17 @@ export default class Input extends View {
     const target = e.target as HTMLInputElement
     this.updateValue(target.value.toUpperCase())
     this.genSuggestion(target.value)
+    this.handleInputting()
+  }
+
+  handleInputting() {
+    if (this.timer) {
+      clearTimeout(this.timer)
+    }
+    this.querySelector('.input-container')?.classList.add('inputting')
+    this.timer = setTimeout(() => {
+      this.querySelector('.input-container')?.classList.remove('inputting')
+    }, 300)
   }
 
   handleKeydownEvent = (e: KeyboardEvent) => {
